@@ -1,0 +1,13 @@
+
+
+.image-list {
+    columns: 6 200px;
+    column-gap: 10px;
+
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 10px;
+}
