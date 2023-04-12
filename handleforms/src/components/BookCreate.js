@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+//ATENCÃO, ESTE COMPONENTE É O FORMULARIO DE ENVIO. 
+
 function BookCreate({ onCreate }) {
   const [title, setTitle] = useState( ''); //1. Ao criar o Create, é preciso setar um useState no input, pois cada vez será modificado.
 
