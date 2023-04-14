@@ -12,10 +12,15 @@ function BookShow({ book, onDelete, onEdit }) {
   const handleEditClick = () => {
     setShowEdit(!showEdit);
   };
+  
+  const handleSubmit = (id, newTitle) => {
+    onEdit(id, newTitle)
+    setShowEdit(false)
+  }
 
   let content = <h3>{book.title}</h3> //7.4 Aqui prossegue com o que foi dito no 7.3. se usa o LET pois a variavel content abriga book.title, que será modificada, então não pode ser uma constante. SE SHOW EDIT for verdadeiro, o conteudo será agora o do componente bookedit. A DIV no JSX, responsavel por mostrar book.title, vai receber CONTENT tambem!
   if(showEdit) {
-    content = <BookEdit onEdit = {onEdit} book = {book}/> //8.3 Aqui que se exportar o LIVRO como PROPriedade para BookEdit!!!
+    content = <BookEdit onSubmit = {handleSubmit} book = {book}/> //8.3 Aqui que se exportar o LIVRO como PROPriedade para BookEdit!!!
   }
   return (
     <div className="book-show">
