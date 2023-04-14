@@ -37,12 +37,23 @@ function App() {
 
   return (
     <div className="app">
+      <h1>Reading List</h1> 
       <BookList onEdit={editBookById} books={books} onDelete={deleteBookById} />
       <BookCreate onCreate={CreateBook} />
     </div>
   ); //2,3. Display the Prop CreateBook on App, can be any name (onOrange). Passa a prop criada em app, para gerar o id aleatorio para cada titulo recebido. O componente BookCreate se trata do fomulario de envio da informação. A prop aqui apenas modifica o valor enviado!
   //5.1 Chame o componente BookList para o JSX, com a prop Books, enviando para o componente.
   //6.2 Crie a prop onDelete em BookList, ou seja, ela é enviada para Booklist.js, comunicando assim a função desejada para o outro componente, e por fim passe a função deleteBookById para ela,
+  //11. É adicionado os elementos para fazer o display das imagens
 }
 
 export default App;
+
+//9.   9. AGORA QUE O COMPONENTE BOOKEDIT EDITOU O LIVRO QUE È MOSTRADO POR BOOKSHOW, QUE POR CONSEQUENCIA VEM DE BOOK LIST E QUE ESTA EM APP.
+// É PRECISO MODIFICAR COM O NOVO, MUDAR SEU ESTADO! ATUALIZA-LO!
+// Para isso é criado uma CallBack function, um eventhandler em APP, ele vai então ser passado até bookedit,
+// ENTÂAAAO, quando o usuário submeter o formulário, esse eventhandler vai COMUNICAR APP, para ATUALIZAR O OBJETO!
+// edit
+// O livro para ser modificado é encontrado pelo ID. O title é o novo titulo.
+// A callBackfunction, ou eventhandler, é passado como uma prop para os outros componentes.
+// A PROPriedade, vai ser chamada de onEdit, ela vai passar a função para booklist, de booklist para bookshow, então chegar em bookedit
