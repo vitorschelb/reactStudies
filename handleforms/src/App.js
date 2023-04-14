@@ -5,7 +5,7 @@ import BookList from "./components/BookList"; //4. Import the BookList Component
 function App() {
   const [books, setBooks] = useState([]); //1,2. Os livros serão adicionados no array pelo BookCreate.
   
-  const deleteBookById = (id) => { //6.1 Criar a função para deletar os livros no app
+  const deleteBookById = (id) => { //6.1 Criar a função para deletar os livros no app, através de um filter.
     const deletedBooks = books.filter((book) => {
       return book.id !== id
     })
