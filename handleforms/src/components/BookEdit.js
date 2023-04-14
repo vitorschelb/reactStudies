@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-function BookEdit({book}) {
+function BookEdit({book, onEdit}) {
   const [title, setTitle] = useState(book.title); //8.3 é importado de BookShow o titulo do livro defalut que deseja mudar, para ser o estado inicial do componente BookEdit.
 
   const handleChange = (event) => {
@@ -10,7 +10,7 @@ function BookEdit({book}) {
   
   const handleSubmit = (event) => { //8.2 É criado o evento para submissão de do formulário, sem esse evento, a informação é perdida. 
     event.preventDefault()
-    console.log(title)
+    onEdit(book.id, title) //9.2 Aqui a magica acontece! Quando finalmente a função onEdit chega no componente, ela é colocada na função de callback, ou event handler, como edesejar chamar, dos formulários enviados. Ela então como esta dentro do componente, pode comunicar as variaveis recebidas da edição, ela então envia todo o caminho de volta o id e o NOVO TITULO!
   }
   
   return (

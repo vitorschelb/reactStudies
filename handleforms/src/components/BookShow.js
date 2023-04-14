@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BookEdit from "./BookEdit"; //7.3 É importado o componente book edit, que vai realmente conter a função de editar. Aqui em BookSHOW, o que se esta fazendo é a possibilidade de MOSTRAR, SHOW, o display de edição! Ao clicar no edit, a interação vai ser com a função do componente BookEdit!
 
-function BookShow({ book, onDelete }) {
+function BookShow({ book, onDelete, onEdit }) {
   //5. Recebe a prop book //6.3 Veja que é passada a PROP onDelte aqui, a prop onDelete, remete a função deleteBookById!
   const [showEdit, setShowEdit] = useState(false); //7.É criado um estado para gerenciar o estado se vai estar ativo ou não o dispay de editar.
 
@@ -15,7 +15,7 @@ function BookShow({ book, onDelete }) {
 
   let content = <h3>{book.title}</h3> //7.4 Aqui prossegue com o que foi dito no 7.3. se usa o LET pois a variavel content abriga book.title, que será modificada, então não pode ser uma constante. SE SHOW EDIT for verdadeiro, o conteudo será agora o do componente bookedit. A DIV no JSX, responsavel por mostrar book.title, vai receber CONTENT tambem!
   if(showEdit) {
-    content = <BookEdit book = {book}/> //8.3 Aqui que se exportar o LIVRO como PROPriedade para BookEdit!!!
+    content = <BookEdit onEdit = {onEdit} book = {book}/> //8.3 Aqui que se exportar o LIVRO como PROPriedade para BookEdit!!!
   }
   return (
     <div className="book-show">
