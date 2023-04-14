@@ -14,7 +14,7 @@ function BookCreate({ onCreate }) {
   //3. Criar o botão de submite que vai trigar o evento de submeter do formulário, vai ativar o event handler, logo, vai chamar o onCreate e vai passar o Title desejado para a função.
 
   const handleSubmit = (event) => {
-    event.preventDefault(); //3.1 Essa linha vai impedir que o browser atualize automático, antes de rodar o resto do código.
+    event.preventDefault(); //3.1 Essa linha vai impedir que o browser atualize e processo o formulario automático, antes de rodar o resto do código.
     onCreate(title); //3.2 Aqui chama a função citada no step 3.
     setTitle('')
   };
