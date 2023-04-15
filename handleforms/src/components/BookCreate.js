@@ -3,11 +3,12 @@ import { useState } from "react";
 //ATENCÃO, ESTE COMPONENTE É O FORMULARIO DE ENVIO. 
 
 function BookCreate({ onCreate }) {
-  const [title, setTitle] = useState( ''); //1. Ao criar o Create, é preciso setar um useState no input, pois cada vez será modificado.
+  const [title, setTitle] = useState(''); //1. Ao criar o Create, é preciso setar um useState no input, pois cada vez será modificado.
 
   const handleChange = (event) => {
-    //2.1 Criar um Handle Event para lidar com o evento de criação, event será o nome adicionado.
+    //2.1 Criar um Handle Event para lidar com o evento de criação, event será o nome adicionado, na realidade o event é a digitação  no input. com .target leva até o input, e o value joga no titulo!!!! console.log(event.target.value)
     setTitle(event.target.value);
+
   };
   // 2.2 Passa os argumentos para os paramentros no input, o titulo do useState e o handleChange.
 
