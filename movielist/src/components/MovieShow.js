@@ -23,6 +23,7 @@ function MovieShow({ movie, onDelete, onEdit }) {
   }
   return (
     <div className="book-show">
+      <div>RECEBE API DO CARTAZ</div>
       <div>{content}</div>
       <div className="actions">
         <button className="edit" onClick={handleEditClick}>
