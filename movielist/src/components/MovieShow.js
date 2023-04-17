@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MovieEdit from "./MovieEdit";
 
 function MovieShow({ movie, onDelete, onEdit }) {
+  const [posterSource, setPosterSource] = useState("");
+
+  useEffect(() => {
+    const getPoster = async (title) => {
+      const url = `http://www.omdbapi.com/?s=${title}&apikey=885f4bc7`;
+      const response = await fetch(url);
+      const responseJson = await response.json();
+      setPosterSource(responseJson.Search[0].Poster)
+    };
+    getPoster(movie.title)
+  }, [movie.title]);
+
   const [showEdit, setShowEdit] = useState(false);
   const handleDeleteClick = () => {
     onDelete(movie.id);
@@ -22,8 +34,10 @@ function MovieShow({ movie, onDelete, onEdit }) {
     content = <MovieEdit onSubmit={handleSubmit} movie={movie} />;
   }
   return (
-    <div className="book-show">
-      <div>RECEBE API DO CARTAZ</div>
+    <div className="book-show" >
+      <div>
+        {posterSource ? <img src={posterSource} alt="movie"/> : <div> {movie.title} </div>}
+      </div>
       <div>{content}</div>
       <div className="actions">
         <button className="edit" onClick={handleEditClick}>

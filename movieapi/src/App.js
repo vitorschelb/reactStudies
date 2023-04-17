@@ -16,7 +16,9 @@ function App() {
 
     if (responseJson.Search) {
       setMovies(responseJson.Search);
+      console.log(movies)
     }
+
   };
 
   useEffect(() => {

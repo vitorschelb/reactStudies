@@ -7,23 +7,26 @@ function App() {
 
   const editMovieById = (id, newTitle) => {
     const updatedMovies = movies.map((movie) => {
-      if(movie.id === id) {
-        return { ...movie, title: newTitle}
+      if (movie.id === id) {
+        return { ...movie, title: newTitle };
       }
-      return movie
-    })
-    setMovies(updatedMovies)
-  }
+      return movie;
+    });
+    setMovies(updatedMovies);
+  };
 
   const deleteMovieById = (id) => {
-    const deletedMovies = movies.filter((movie) => {return movie.id !== id;});
+    const deletedMovies = movies.filter((movie) => {
+      return movie.id !== id;
+    });
 
-    setMovies(deletedMovies)
-  }
+    setMovies(deletedMovies);
+  };
+
   const CreateMovie = (title) => {
     const updatedMovies = [
+      ...movies,
       {
-        ...movies,
         id: Math.round(Math.random() * 9999),
         title,
       },
@@ -33,7 +36,11 @@ function App() {
   return (
     <div className="app">
       <h1>Movie List</h1>
-      <MovieList onEdit={editMovieById} movies = {movies} onDelete={deleteMovieById}/>
+      <MovieList
+        onEdit={editMovieById}
+        movies={movies}
+        onDelete={deleteMovieById}
+      />
       <MovieCreate onCreate={CreateMovie} />
     </div>
   );
