@@ -1,9 +1,21 @@
-import { useState } from "react"; //1,1.Determinar o useState
+import { useState, useEffect } from "react"; //1,1.Determinar o useState
 import BookCreate from "./components/BookCreate"; //2,2. Import the create Component.
 import BookList from "./components/BookList"; //4. Import the BookList Component
-
+import axios from 'axios'
 function App() {
   const [books, setBooks] = useState([]); //1,2. Os livros serão adicionados no array pelo BookCreate.
+
+  const fetchBooks = async () => {
+    const response = await axios.get('http://localhost:3001/books')
+
+    setBooks(response.data) //12. Aqui agora é para chamar a lista de livros quando chamar a função e carregar na tela! Como a response é o array de books, é atualizado o estado de app com response.data. NUNCA CHAME FETCHBOOKS() DENTRO DA CONSTANTE, POR QUE GERA UM LOOP DE REQUEST INFINITO!
+  }
+
+  useEffect(() => {
+    fetchBooks()
+  }, [])
+
+
 
   const editBookById = (id, newTitle) => {
     // 9. Vamos lá, a explicação de todo o processo esta no final do código. Aqui a função pega o ID do livro que é para ser alterado, e o NOVO titulo. A função irá trabalhar com esses parametros. É usada a constante de livros atualizados, a mesma que se usa para criar livros, é a que abri a lista, o array,  que é igual o array de livros que é percorrido por map, book by book, se ele encontrar um livro do array books, como o mesmo id, ele vai COPIAR todos os books, por isso o SPREAD,a propriedade título do OBJETO, será modificado para o newTitle. O setstate roda e então atualiza a constante de updatedBooks dentro de EditBookByID.
@@ -26,11 +38,15 @@ function App() {
     setBooks(deletedBooks);
   };
 
-  const CreateBook = (title) => {
+  const CreateBook = async (title) => { // 12 APOS INSTALAR O AXIOS E CONFIGURAR O JSON SERVER, FAZER A FUNÇÃO DE POST.
     //2,1. Create the Event Handler.
+    const response = await axios.post('http://localhost:3001/books', {
+      title
+    });
+
     const updatedBooks = [
-      ...books,
-      { id: Math.round(Math.random() * 9999), title },
+      ...books, response.data
+      // { id: Math.round(Math.random() * 9999), title }, 12: AGORA O ID É CRIADO PELO JSON SERVER
     ]; //4. Adicione dentro do add function, a função para gerar um ID aleatório para seu livro, esse método não gera ID único, mas é o suficiente para a aplicação.
     setBooks(updatedBooks); //4.1 . Create the ADD function
   };
