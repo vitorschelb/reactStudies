@@ -17,19 +17,23 @@ function App() {
 
 
 
-  const editBookById = (id, newTitle) => {
+  const editBookById = async (id, newTitle) => {
     // 9. Vamos lá, a explicação de todo o processo esta no final do código. Aqui a função pega o ID do livro que é para ser alterado, e o NOVO titulo. A função irá trabalhar com esses parametros. É usada a constante de livros atualizados, a mesma que se usa para criar livros, é a que abri a lista, o array,  que é igual o array de livros que é percorrido por map, book by book, se ele encontrar um livro do array books, como o mesmo id, ele vai COPIAR todos os books, por isso o SPREAD,a propriedade título do OBJETO, será modificado para o newTitle. O setstate roda e então atualiza a constante de updatedBooks dentro de EditBookByID.
+   const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      title: newTitle
+    })
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        return { ...book, title: newTitle };
+        return { ...book, ...response.data }; //13 Aqui é alterado por que, se continuasse apenas com title: newTitle, outras atualizações de propriedades do objeto seriam ignoradas, então dessa forma ele atualiza o objeto por completo. Ele pega a response completa
       }
 
       return book;
     });
     setBooks(updatedBooks);
   };
-
-  const deleteBookById = (id) => {
+  
+  const deleteBookById = async (id) => {
+    await axios.delete(`http://localhost:3001/books/${id}`) //13. No caso de deletar nao é preciso do argumento ou transformar em uma constante para atualizar o array, por que nao vai alterar alguma propriedade dentro do objeto e sim apenas deletar o objeto.
     //6.1 Criar a função para deletar os livros no app, através de um filter.
     const deletedBooks = books.filter((book) => {
       return book.id !== id;
