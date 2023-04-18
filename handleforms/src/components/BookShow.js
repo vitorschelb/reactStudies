@@ -1,20 +1,21 @@
 import { useState } from "react";
 import BookEdit from "./BookEdit"; //7.3 É importado o componente book edit, que vai realmente conter a função de editar. Aqui em BookSHOW, o que se esta fazendo é a possibilidade de MOSTRAR, SHOW, o display de edição! Ao clicar no edit, a interação vai ser com a função do componente BookEdit!
+import useBooksContext from "../hooks/use-books-context";
 
-function BookShow({ book, onDelete, onEdit }) {
+function BookShow({ book }) {
   //5. Recebe a prop book //6.3 Veja que é passada a PROP onDelte aqui, a prop onDelete, remete a função deleteBookById!
   const [showEdit, setShowEdit] = useState(false); //7.É criado um estado para gerenciar o estado se vai estar ativo ou não o dispay de editar.
+  const {deleteBookById} = useBooksContext()
 
   const handleDeleteClick = () => {
-    onDelete(book.id);
+    deleteBookById(book.id);
   };
 
   const handleEditClick = () => {
     setShowEdit(!showEdit);
   };
   
-  const handleSubmit = (id, newTitle) => {
-    onEdit(id, newTitle)
+  const handleSubmit = () => {
     setShowEdit(false) //Conferir 10 abaixo.
   }
 
@@ -53,4 +54,6 @@ export default BookShow;
 // Então me bookedit, é retirado o onEdit e colocado apenas o handleSubmit
 // agora o onSUbmit que RECEBE OS PARAMETROS de onEdit! 
 // Handle submit vai fazer o trabalho das duas!
+
+//17. Em BookShow.js vamos manter apenas onDelete, por que a prop onEdit na realidade era usada por BookEdit, que agora vai comunicar diretamente com ela. Então vamos mudar todos os lugares que chamam onDelete, para a função direta importada deleteBookById, e como onEdit será chamado diretamente por BookEdit.js, vamos remove-la.
 
