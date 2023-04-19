@@ -5,13 +5,15 @@ import MovieEdit from "./MovieEdit";
 function MovieShow({ movie, onDelete, onEdit }) {
   const [posterSource, setPosterSource] = useState("");
 
+  const getPoster = async (title) => {
+    const url = `http://www.omdbapi.com/?s=${title}&apikey=885f4bc7`;
+    const response = await fetch(url);
+    const responseJson = await response.json();
+    setPosterSource(responseJson.Search[0].Poster)
+    console.log("GetPoster")
+  };
+  
   useEffect(() => {
-    const getPoster = async (title) => {
-      const url = `http://www.omdbapi.com/?s=${title}&apikey=885f4bc7`;
-      const response = await fetch(url);
-      const responseJson = await response.json();
-      setPosterSource(responseJson.Search[0].Poster)
-    };
     getPoster(movie.title)
   }, [movie.title]);
 

@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     getMovieRequest(searchValue);
+    console.log("Carregando")
   }, [searchValue]);
 
   return (
